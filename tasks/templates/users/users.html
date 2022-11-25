@@ -1,0 +1,15 @@
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+    <h1>Users</h1>
+    <a href="{% url 'create-user' %}">Create a new User</a>
+    <ul>
+    {% for user in users %}
+            <li>{{user.name}}</li>
+            <a href="{% url 'delete-user' user.id %}"><button>Delete</button></a>
+            <a href="{% url 'update-user' user.id %}"><button>Update</button></a>
+
+    {% endfor %}
+    </ul>
+{% endblock %}
