@@ -17,12 +17,15 @@ def createUser(request):
             'form': UserForm()
         })
 
-    u = User()
-    u.name = request.POST['name']
-    u.email = request.POST['email']
-    u.telefono = request.POST['telefono']
-    u.save()
-    return redirect('list-users')
+    u = UserForm(request.POST)
+    if  u.is_valid():
+        u.save()
+        return redirect('list-users')
+    else:
+        return render(request, 'users/create-user.html', {
+            'form': u
+        })
+
 
 
 def deleteUser(request, id):

@@ -25,12 +25,19 @@ def createTask(request):
             'form': TaskForm()
         })
 
-    t = Task()
-    t.title = request.POST['title']
-    t.description = request.POST['description']
-    t.user = User.objects.get(id=request.POST['user'])
-    t.save()
+    t = TaskForm(request.POST)
+    if  t.is_valid() == False:
+        return render(request, 'tasks/create-task.html', {
+            'form': t
+        })
+    
+    task = Task()
+    task.title = request.POST['title']
+    task.description = request.POST['description']
+    task.user = User.objects.get(id=request.POST['user'])
+    task.save()
     return redirect('list-tasks')
+    
 
 def updateTask(request, id):
     task = Task.objects.get(id=id)

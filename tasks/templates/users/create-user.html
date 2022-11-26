@@ -1,12 +1,15 @@
 {% extends 'layouts/base.html'%}
 
 {% block content %}
-    <h1>Create a new User</h1>
-    <form method="POST">
+<div class="rounded-2 shadow-sm p-4 container w-50">
+    <h1>Create User</h1>
+    <form method="POST" class="m-0">
         {% csrf_token %}
         {{form.as_p}}
-        <button >Create</button>
+        <button class="btn btn-dark" >Create</button>
     </form>
+</div>
+    
    
 
 {% endblock%}

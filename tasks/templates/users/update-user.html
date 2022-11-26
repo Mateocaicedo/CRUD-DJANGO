@@ -1,10 +1,12 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
+<div class="rounded-2 shadow-sm p-4 container w-50">
     <h1>Update User</h1>
-    <form method="POST">
+    <form method="POST" class="m-0">
         {% csrf_token %}
         {{form.as_p}}
-        <button >Update</button>
+        <button class="btn btn-dark" >Update</button>
     </form>
+</div>
 {% endblock%}
