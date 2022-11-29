@@ -5,19 +5,20 @@ from tasks.models.task import Task
 from tasks.models.user import User
 # from pkg_resources import require
 
-class TaskForm(forms.ModelForm):
+class TaskForm(forms.Form):
     title = forms.CharField(max_length=200,label='Titulo', widget=forms.TextInput(attrs={'class':'form-control'}),label_suffix=' ')
     user = forms.IntegerField(widget=forms.Select(attrs={'class':'form-control'}), label='Usuario',label_suffix=' ')
     description = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control'}), label='Description')
   
     class Meta:
         model = Task
-        fields = ['title',  'user','description']
+        fields = ['title', 'user','description']
 
     
     def __init__(self, *args, **kwargs ):
         super().__init__(*args, **kwargs)
         self.fields['user'].widget = forms.Select(choices=User.objects.all().values_list('id', 'name'), attrs={'class':'form-control'})
+    
 
     def clean_title(self):
         title = self.cleaned_data['title']
@@ -25,11 +26,6 @@ class TaskForm(forms.ModelForm):
             raise forms.ValidationError('El titulo es requerido')
         return title
 
-    # def clean_user(self):
-    #     user = self.cleaned_data['user']
-    #     if user == '':
-    #         raise forms.ValidationError('El usuario es requerido')
-    #     return user
 
     def clean_description(self):
         description = self.cleaned_data['description']
@@ -37,7 +33,7 @@ class TaskForm(forms.ModelForm):
             raise forms.ValidationError('La descripcion es requerida')
         return description
 
-class UserForm(forms.ModelForm):
+class UserForm(forms.Form):
     name = forms.CharField(max_length=200, label='Nombre', widget=forms.TextInput(attrs={'class':'form-control'}),label_suffix=' ')
     email = forms.EmailField(max_length=200, label='Email', widget=forms.TextInput(attrs={'class':'form-control'}),label_suffix=' ')
     telefono = forms.CharField(max_length=200, label='Telefono', widget=forms.TextInput(attrs={'class':'form-control'}),label_suffix=' ')

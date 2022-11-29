@@ -13,6 +13,7 @@ urlpatterns = [
     path('delete-task/<int:id>', task.deleteTask, name='delete-task'),
     path('create-task/', task.createTask, name='create-task'),
     path('update-task/<int:id>', task.updateTask, name='update-task'),
+    path('complete-task/<int:id>', task.completeTask, name='complete-task'),
 
     path('create-user/',user.createUser, name='create-user'),
     path('users/', user.users, name='list-users'),
